@@ -27,7 +27,7 @@ def zzzprogram(host, port, program) :
     except :
         return
 	 
-    s.send((program + '\0').encode('utf-8'))
+    s.sendall((program + '\0').encode('utf-8'))
 
     result = ''
     while True :
