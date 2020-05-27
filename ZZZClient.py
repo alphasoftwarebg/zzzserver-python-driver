@@ -26,8 +26,12 @@ def zzzprogram(host, port, program) :
         s.connect((host, port))
     except :
         return
-	 
-    s.sendall((program + '\0').encode('utf-8'))
+
+    program_bytes = (program + '\0').encode('utf-8')
+    program_bytes_length = len(program_bytes)
+    sent_bytes = 0
+    while program_bytes_length > sent_bytes:
+        sent_bytes += s.send(program_bytes[sent_bytes:])
 
     result = ''
     while True :
